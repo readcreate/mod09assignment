@@ -1,18 +1,11 @@
-// CREATE AN ARRAY OF EMPLOYEES
-let arrEmployees = [
-    [34123413, "Zak Ruvalcaba", 3424, "zak@vectacorp.com", "Executive"],
-    [23424665, "Sally Smith", 2344, "sally@vectacorp.com", "Administrative"],
-    [12341244, "Mark Martin", 5352, "mark@vectacorp.com", "Sales"],
-    [14545423, "Robin Banks", 7867, "robin@vectacorp.com", "Marketing"],
-    [13413453, "Sue Wedge", 1235, "sue@vectacorp.com", "QA"]
-]
+import {init} from './modules/init.js'
 
 // GET DOM ELEMENTS
 let empTable    = document.querySelector('#employees')
 let empCount    = document.querySelector('#empCount')
 
 // BUILD THE EMPLOYEES TABLE WHEN THE PAGE LOADS
-buildGrid(arrEmployees)
+buildGrid()
 
 // DELETE EMPLOYEE
 empTable.addEventListener('click', (e) => {
@@ -23,33 +16,42 @@ empTable.addEventListener('click', (e) => {
             let rowIndex = e.target.parentNode.parentNode.rowIndex
             // REMOVE EMPLOYEE FROM ARRAY
             empTable.deleteRow(rowIndex)
+            // UPDATE EMPLOYEE COUNT
+            empCount.value = `(${empTable.rows.length-1})`
         }
     }
 })
 
 // BUILD THE EMPLOYEES GRID
-function buildGrid(arrEmployees) {
+function buildGrid() {
     // REMOVE THE EXISTING SET OF ROWS BY REMOVING THE ENTIRE TBODY SECTION
     empTable.lastElementChild.remove()
+
     // REBUILD THE TBODY FROM SCRATCH
     let tbody = document.createElement('tbody')
-    // LOOP THROUGH THE ARRAY OF EMPLOYEES
-    // REBUILDING THE ROW STRUCTURE
-    for (let employee of arrEmployees) {
-        tbody.innerHTML += 
-        `
-        <tr>
-            <td>${employee[0]}</td>
-            <td>${employee[1]}</td>
-            <td>${employee[2]}</td>
-            <td><a href="mailto:${employee[3]}">${employee[3]}</a></td>
-            <td>${employee[4]}</td>
-            <td><button class="btn btn-sm btn-danger delete">X</button></td>
-        </tr>
-        `
-    }
+
+    init().then( arrayWithEmployeeObjects => {
+        for (let employee of arrayWithEmployeeObjects) {
+            tbody.innerHTML += 
+            `
+            <tr>
+                <td>${employee.id}</td>
+                <td>${employee.name}</td>
+                <td>${employee.extension}</td>
+                <td><a href="mailto:${employee.email}">${employee.email}</a></td>
+                <td>${employee.department}</td>
+                <td><button class="btn btn-sm btn-danger delete">X</button></td>
+            </tr>
+            `
+            console.log("Current employee:", employee)
+
+            // UPDATE EMPLOYEE COUNT
+            empCount.value = `(${empTable.rows.length-1})`
+        }
+
+    })
+
     // BIND THE TBODY TO THE EMPLOYEE TABLE
     empTable.appendChild(tbody)
-    // UPDATE EMPLOYEE COUNT
-    empCount.value = `(${arrEmployees.length})`
+    
 }
