@@ -1,5 +1,5 @@
 export async function init() {
-    console.log("async function init was successfully exported from init.js and imported into script.js")
+    // console.log("async function init was successfully exported from init.js and imported into script.js and called from script.js")
 
     try {
         const employeesFetch = await fetch('./data/employees.json')

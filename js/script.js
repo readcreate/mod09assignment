@@ -43,7 +43,7 @@ function buildGrid() {
                 <td><button class="btn btn-sm btn-danger delete">X</button></td>
             </tr>
             `
-            console.log("Current employee:", employee)
+            // console.log("Current employee:", employee)
 
             // UPDATE EMPLOYEE COUNT
             empCount.value = `(${empTable.rows.length-1})`
