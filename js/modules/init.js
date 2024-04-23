@@ -1,3 +1,5 @@
+// Anshul Kumar Module 9 assignment, COMP 690 SDCCE spring 2024
+
 export async function init() {
     // console.log("async function init was successfully exported from init.js and imported into script.js and called from script.js")
 

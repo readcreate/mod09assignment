@@ -1,3 +1,5 @@
+// Anshul Kumar Module 9 assignment, COMP 690 SDCCE spring 2024
+
 import {init} from './modules/init.js'
 
 // GET DOM ELEMENTS
